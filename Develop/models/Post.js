@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require("sequalize");
+const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
-const sequalize = require("../config/connection");
+const sequelize = require("../config/connection");
 
 class Post extends Model {}
 
@@ -26,13 +26,13 @@ Post.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        module: "user",
+        model: "user",
         key: "id",
       },
     },
   },
   {
-    sequalize,
+    sequelize,
     timestamps: true,
     freezTableName: true,
     underscore: true,

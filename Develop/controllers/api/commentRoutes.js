@@ -1,7 +1,12 @@
 const router = require('express').Router();
+const { }
 
 router.get('/', async (req, res) => {
-    return res.render('all');
+    try {
+        const comments = await Comment.findAll({
+          
+      })
+  }
 });
 
 router.get('/comment/:id', async (req, res) => {
