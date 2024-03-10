@@ -1,22 +1,22 @@
 [
     {
         "username": "TechGuru1",
-        "email": "TechGuru1@email.com",
+        "email": "TechGuru1@hotmail.com",
         "password": "pTechGuru1"
     },
     {
         "username": "TechGuru2",
-        "email": "TechGuru2@email.com",
+        "email": "TechG2@email.com",
         "password": "pTechGuru2"        
     },
     {
         "username": "TechGuru3",
-        "email": "TechGuru3@email.com",
+        "email": "Guru3@gmail.com",
         "password": "pTechGuru3"        
     },
     {
         "username": "TechGuru4",
-        "email": "TechGuru4@email.com",
+        "email": "techGuru44@aol.com",
         "password": "pTechGuru4"        
     }
 ]

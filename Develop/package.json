@@ -1,4 +1,7 @@
 {
+  "name": "develop",
+  "version": "1.0.0",
+  "main": "server.js",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "connect-session-sequelize": "^7.1.7",
@@ -8,5 +11,18 @@
     "express-session": "^1.18.0",
     "mysql2": "^3.9.1",
     "sequelize": "^6.37.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js --watch",
+    "seed": "node seeds/index.js",
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "sequelize-cli": "^6.6.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
