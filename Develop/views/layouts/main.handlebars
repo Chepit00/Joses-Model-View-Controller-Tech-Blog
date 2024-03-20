@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech World</title>
-    <link rel="stylesheet" href="/Develop/public/css/style.css">
+    {{!-- <link rel="stylesheet" href="/Develop/public/css/style.css"> --}}
 </head>
 
 <body>
@@ -13,24 +13,14 @@
         <header class="display-flex justify-space-between align-center p-2">
             <h1>Tech World</h1>
             <nav>
-                {{#if logged_in}}
-                <a href="/profile">Profile</a>
-                <form action="/logout" method="POST" id="logoutForm">
-                    <button type="submit" class="no-button" id="logout">Logout</button>
-                </form>
-                {{else}}
-                <a href="/login">Login</a>
-                {{/if}}
+                {{> navbar}}
             </nav>
         </header>
         <main class="container container-fluid mt-5">
             {{{ body }}}
         </main>
-        <footer>
-            <!-- Add footer content here -->
-        </footer>
     </div>
-    <!-- Render script for logged-in users only -->
+     {{!-- Render script for logged-in users only  --}}
     {{#if logged_in}}
     <script src="/js/logout.js"></script>
     {{/if}}

@@ -1,8 +1,29 @@
 const router = require("express").Router();
-const { User, Post } = require("../../models");
+const { User, Post, Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-//route to create new post 
+//good
+router.get("/post", async (req, res) => {
+  try {
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
+    });
+    const posts = postData.map((post) => post.get({ plain: true }));
+    res.render("homepage", {
+      posts,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//route to create new post
 router.post("/", withAuth, async (req, res) => {
   try {
     const post = await Post.create({
@@ -16,7 +37,7 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
-//route to update a post 
+//route to update a post
 router.put("/:id", withAuth, async (req, res) => {
   try {
     const updatedPost = await Post.update(

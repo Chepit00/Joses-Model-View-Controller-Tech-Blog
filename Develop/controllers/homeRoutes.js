@@ -1,22 +1,23 @@
-const router = require("express").Router();
-const { Comment, Post, User } = require("../models");
-const withAuth = require("../utils/auth");
+const router = require('express').Router();
+const { Comment, Post, User } = require('../models');
+const withAuth = require('../utils/auth');
 
-router.get("/", async (req, res) => {
+//good
+router.get('/', async (req, res) => {
   try {
     // Get all post and JOIN with user data
     const postData = await Post.findAll({
       include: [
         {
           model: User,
-          attributes: ["username"],
+          attributes: ['username'],
         },
       ],
     });
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
     //Renders template "homepage" wiht data, includes flag indicating if user is logged in or not
-    res.render("homepage", {
+    res.render('homepage', {
       posts,
       logged_in: req.session.logged_in,
     });
@@ -25,10 +26,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Route to fetch a specific post and its associated comments
+//GOOD-- Route to fetch a specific post and its associated comments 
 router.get("/post/:id", async (req, res) => {
   try {
-    //Get post by id and include associated user & comments
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
@@ -46,68 +46,62 @@ router.get("/post/:id", async (req, res) => {
         },
       ],
     });
-    //If no data is found 404 status with below msg and then itll return and wont go any furthur
+
     if (!postData) {
-      res.status(404).json({ message: "No post found with this id" });
-      return;
+      return res.status(404).json({ message: "No post found with this id" });
     }
 
-    //Converts data to plain JavaScript objects/arrays
-    const post = postData.get({ plain: true });
-
-    // Render post details template with data, includes flag indicating if user is logged in or not
-    res.render("post-details", {
-      post,
-      logged_in: res.session.logged_in,
-    });
+    const post = postData.toJSON(); // Convert to JSON object
+    res.status(200).json(post);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err); // Log error for debugging
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
-// Route to render the dashboard page, accessible only to logged-in users
-router.get("/dashboard", withAuth, async (req, res) => {
+// GOOD--Route to render the dashboard page, accessible only to logged-in users
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    // Retrieve all posts created by the logged-in user
+
     const postData = await Post.findAll({
-      // Filter posts by user_id
       where: { user_id: req.session.user_id },
-      // Include the associated user model to fetch the username of the post creator
-      include: [{ model: user, attributes: ["username"] }],
+
+      include: [{ model: User, attributes: ["username"] }],
     });
-    // Serialize the retrieved post data for template rendering
+
     const posts = postData.map((post) => post.get({ plain: true }));
-    // Render the dashboard template with the retrieved post data and user login status
+
     res.render("dashboard", {
       posts,
       logged_in: req.session.logged_in,
     });
-    //Handle any errors
+
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get("/login", (req, res) => {
+router.get('/login', (req, res) => {
   if (req.session.logged_in) {
     res.redirect("/dashboard");
     return;
   }
 
-  res.render("login");
+  res.render('login');
 });
 
-router.get("/signUp", (req, res) => {
+//GOOD
+router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("dashboard");
+    res.redirect("/dashboard");
     return;
   }
-  res.render("signUp");
+  res.render("signup");
 });
 
-router.get("/newPost", (req, res) => {
+router.get("/newpost", (req, res) => {
   if (req.session.logged_in) {
-    res.render("newPost");
+    res.render("newpost");
     return;
   }
   res.redirect("/login");
