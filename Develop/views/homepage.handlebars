@@ -12,7 +12,7 @@
                 {{#each posts}}
                 <a href="/post/{{id}}" class="list-group-item list-group-item-action">
                     <h5 class="mb-1">{{title}}</h5>
-                    <p class="mb-1">Posted by {{User.username}} on {{createdAt}}</p>
+                    <p class="mb-1">Posted by {{user.username}} on {{format_date date_created}}</p>
                 </a>
                 {{/each}}
             </div>

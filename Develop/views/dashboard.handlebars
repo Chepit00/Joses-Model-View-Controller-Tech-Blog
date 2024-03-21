@@ -10,7 +10,7 @@
                 {{#each posts}}
                 <div class="list-group-item">
                     <h5 class="mb-1">{{title}}</h5>
-                    <p class="mb-1">Posted on {{createdAt}}</p>
+                    <p class="mb-1">Posted on {{format_date date_created}}</p>
                     <div class="btn-group" role="group" aria-label="Post Actions">
                         <a href="/post/{{id}}" class="btn btn-outline-primary btn-sm">View</a>
                         <a href="/edit-post/{{id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
@@ -23,8 +23,9 @@
                 {{/each}}
             </div>
             {{else}}
-            <p>No posts available. <a href="/new-post">Create a new post</a>.</p>
+            <p>No posts available.</p>
             {{/if}}
+            <a href="/newpost">Create a new post</a>
         </div>
     </div>
 </div>
